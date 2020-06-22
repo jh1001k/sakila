@@ -31,7 +31,7 @@ public class CategoryDao {
 	public Category insertCategory(Category category) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO category(name, last_update) VALUES(?,now())";
+		String sql = "INSERT INTO sakila_category(name, last_update) VALUES(?,now())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, category.getName());
 		stmt.executeQuery();

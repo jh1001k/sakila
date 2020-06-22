@@ -35,7 +35,7 @@ public class FilmTextDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="INSERT INTO film_text(film_id, title, description) VALUE(?, ?, ?)";
+		String sql="INSERT INTO sakila_film_text(film_id, title, description) VALUE(?, ?, ?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, filmText.getFilmId());
 		stmt.setString(2, filmText.getTitle());
@@ -47,7 +47,7 @@ public class FilmTextDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT MAX(film_id) max FROM film_text";
+		String sql = "SELECT MAX(film_id) max FROM sakila_film_text";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		ResultSet rs = stmt.executeQuery();
@@ -63,7 +63,7 @@ public class FilmTextDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) FROM film_text WHERE title like ?";
+		String sql = "SELECT count(*) FROM sakila_film_text WHERE title like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();

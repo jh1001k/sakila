@@ -55,7 +55,7 @@ public class StoreDao {
 	public ArrayList<StoreAndStaffAndAddress> selectStoreAll(int searchWord) throws Exception{
 		DBUtil dbUtil=new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT st.* , sf.* , ad.* FROM store st INNER JOIN staff sf INNER JOIN address ad ON st.manager_staff_id=sf.staff_id And st.address_id=ad.address_id where st.store_id like ?";
+		String sql = "SELECT st.* , sf.* , ad.* FROM sakila_store st INNER JOIN sakila_staff sf INNER JOIN sakila_address ad ON st.manager_staff_id=sf.staff_id And st.address_id=ad.address_id where st.store_id like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchWord);
 		ResultSet rs= stmt.executeQuery();

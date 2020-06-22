@@ -23,7 +23,7 @@ public class RentalDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT Count(*) FROM rental WHERE rental_id LIKE ?";
+		String sql = "SELECT Count(*) FROM sakila_rental WHERE rental_id LIKE ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();
@@ -52,7 +52,7 @@ public class RentalDao {
 		public int selectLastPage(int searchWord, int rowPerPage) throws Exception{
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "SELECT Count(*) FROM rental WHERE rental_id = ?";
+			String sql = "SELECT Count(*) FROM sakila_rental WHERE rental_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, searchWord);
 			ResultSet rs = stmt.executeQuery();
@@ -83,7 +83,7 @@ public class RentalDao {
 	public int selectTotlaCount(int searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="SELECT Count(*) from rental where rental_id = ?";
+		String sql="SELECT Count(*) from sakila_rental where rental_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchWord);
 		ResultSet rs = stmt.executeQuery();
@@ -98,7 +98,7 @@ public class RentalDao {
 	public int selectTotlaCount(String searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="SELECT Count(*) from rental where rental_id like ?";
+		String sql="SELECT Count(*) from sakila_rental where rental_id like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();
@@ -114,7 +114,7 @@ public class RentalDao {
 	public ArrayList<RentalAndStaff> selectRentalAndStaff(int beginPage,int rowPerPage,String searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="SELECT r.*, s.* FROM rental r INNER JOIN staff s ON r.staff_id = s.staff_id where r.rental_id LIKE ? order By rental_id asc limit ?,?";
+		String sql="SELECT r.*, s.* FROM sakila_rental r INNER JOIN sakila_staff s ON r.staff_id = s.staff_id where r.rental_id LIKE ? order By rental_id asc limit ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		stmt.setInt(2, beginPage);
@@ -148,7 +148,7 @@ public class RentalDao {
 		public ArrayList<RentalAndStaff> selectRentalAndStaffsearch(int beginPage,int rowPerPage,int searchWord) throws Exception{
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql="SELECT r.*, s.* FROM rental r INNER JOIN staff s ON r.staff_id = s.staff_id where r.rental_id = ? order By rental_id asc limit ?,?";
+			String sql="SELECT r.*, s.* FROM sakila_rental r INNER JOIN sakila_staff s ON r.staff_id = s.staff_id where r.rental_id = ? order By rental_id asc limit ?,?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, searchWord);
 			stmt.setInt(2, beginPage);
@@ -181,7 +181,7 @@ public class RentalDao {
 	public ArrayList<RentalAndStaff> selectRentalAndStaff(String searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="SELECT r.*, s.* FROM rental r INNER JOIN staff s ON r.staff_id = s.staff_id where r.rental_id like ?";
+		String sql="SELECT r.*, s.* FROM sakila_rental r INNER JOIN sakila_staff s ON r.staff_id = s.staff_id where r.rental_id like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();
@@ -211,7 +211,7 @@ public class RentalDao {
 	public ArrayList<RentalAndStaff> selectRentalAndStaffAll(int searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="SELECT r.*, s.* FROM rental r INNER JOIN staff s ON r.staff_id = s.staff_id where r.rental_id = ?";
+		String sql="SELECT r.*, s.* FROM sakila_rental r INNER JOIN sakila_staff s ON r.staff_id = s.staff_id where r.rental_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchWord);
 		ResultSet rs = stmt.executeQuery();

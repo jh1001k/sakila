@@ -38,7 +38,7 @@ public class CountryDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT MAX(country_id) FROM country";
+		String sql = "SELECT MAX(country_id) FROM sakila_country";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
 		ResultSet rs = stmt.executeQuery();
@@ -54,7 +54,7 @@ public class CountryDao {
 	public void insertCountry(Country country) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO country(country_id, country, last_update) VALUES (?, ?, NOW())";
+		String sql = "INSERT INTO sakila_country(country_id, country, last_update) VALUES (?, ?, NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, country.getCountryId());
 		stmt.setString(2, country.getCountry());
@@ -66,7 +66,7 @@ public class CountryDao {
 	public int selectLastPage(int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) FROM country";
+		String sql = "SELECT count(*) FROM sakila_country";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		
@@ -91,7 +91,7 @@ public class CountryDao {
 	public ArrayList<Country> selectStaffByPage(String searchWord, int beginRow, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();		
-		String sql = "SELECT * FROM country WHERE country like ? LIMIT ?, ?";
+		String sql = "SELECT * FROM sakila_country WHERE country like ? LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		stmt.setInt(2, beginRow);
@@ -116,7 +116,7 @@ public class CountryDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) FROM country WHERE country like ?";
+		String sql = "SELECT count(*) FROM sakila_country WHERE country like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();

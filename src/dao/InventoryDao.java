@@ -28,7 +28,7 @@ public class InventoryDao {
 		System.out.println(searchWord+"<----searchWord");
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql="SELECT i.*, f.film_id, f.title FROM inventory i INNER JOIN film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ? ORDER BY i.inventory_id ASC limit ?,?";
+		String sql="SELECT i.*, f.film_id, f.title FROM sakila_inventory i INNER JOIN sakila_film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ? ORDER BY i.inventory_id ASC limit ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%" + searchWord + "%");
 		stmt.setString(2, "%"+searchWord+"%");
@@ -60,7 +60,7 @@ public class InventoryDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) FROM inventory i INNER JOIN film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ?";
+		String sql = "SELECT count(*) FROM sakila_inventory i INNER JOIN sakila_film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		stmt.setString(2, "%"+searchWord+"%");
@@ -87,7 +87,7 @@ public class InventoryDao {
 	public int selectTotalCount() throws Exception{
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql="select count(*) cnt from inventory";
+		String sql="select count(*) cnt from sakila_inventory";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		int totalRow=0;
@@ -100,7 +100,7 @@ public class InventoryDao {
 	public void insertInventory(Inventory inventory) throws Exception { 
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql="INSERT INTO inventory(film_id, store_id, last_update) VALUES(?, ?, now())";
+		String sql="INSERT INTO sakila_inventory(film_id, store_id, last_update) VALUES(?, ?, now())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, inventory.getFilmId());
 		stmt.setInt(2, inventory.getStoreId());
@@ -113,7 +113,7 @@ public class InventoryDao {
 		System.out.println(searchWord+"<----searchWord");
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql="SELECT i.*, f.film_id, f.title FROM inventory i INNER JOIN film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ? ORDER BY i.inventory_id ASC";
+		String sql="SELECT i.*, f.film_id, f.title FROM sakila_inventory i INNER JOIN sakila_film f ON i.film_id = f.film_id WHERE i.film_id like ? or i.store_id like ? ORDER BY i.inventory_id ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%" + searchWord + "%");
 		stmt.setString(2, "%"+searchWord+"%");
@@ -144,7 +144,7 @@ public class InventoryDao {
 		System.out.println(searchWord+"<----searchWord");
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql="SELECT i.*, f.film_id, f.title FROM inventory i INNER JOIN film f ON i.film_id = f.film_id WHERE i.inventory_id = ? ORDER BY i.inventory_id ASC";
+		String sql="SELECT i.*, f.film_id, f.title FROM sakila_inventory i INNER JOIN sakila_film f ON i.film_id = f.film_id WHERE i.inventory_id = ? ORDER BY i.inventory_id ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchWord);
 		ResultSet rs = stmt.executeQuery();

@@ -38,7 +38,7 @@ public class AddressDao {
 	public int selectTotalCount() throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="select Count(*) cnt from address";
+		String sql="select Count(*) cnt from sakila_address";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		int totalRow=0;
@@ -57,7 +57,7 @@ public class AddressDao {
 		Connection conn = dbUtil.getConnection();
 		//address , city , country 3개의 테이블을 조인
 		PreparedStatement stmt = conn.prepareStatement("SELECT ad.address_id, ad.address, ad.address2, cr.country_id, cr.country, ad.city_id, ct.city ,  ad.district, ad.postal_code, ad.phone, ad.last_update "
-				+ "FROM address ad INNER JOIN city ct INNER JOIN country cr "
+				+ "FROM sakila_address ad INNER JOIN sakila_city ct INNER JOIN sakila_country cr "
 				+ "ON ad.city_id = ct.city_id AND ct.country_id = cr.country_id WHERE ad.address like ? order by ad.address_id asc limit ?,?");
 		stmt.setString(1, "%"+searchWord+"%"); // ?에 들어갈 검색값
 		stmt.setInt(2, beginPage);
@@ -101,7 +101,7 @@ public class AddressDao {
 		//SELECT store_id FROM store
 		DBUtil dbUtil=new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT address_id FROM address";
+		String sql = "SELECT address_id FROM sakila_address";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs= stmt.executeQuery();
 		ArrayList<Integer> list=new ArrayList<Integer>();
@@ -121,7 +121,7 @@ public class AddressDao {
 	public int insertAddressAndSelectKey(Address address) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO address(address_id,address,address2,district,city_id,postal_code,phone,last_update) "
+		String sql = "INSERT INTO sakila_address(address_id,address,address2,district,city_id,postal_code,phone,last_update) "
 				+ "VALUES(?,?,?,?,?,?,?,now())";
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 															//옵션이 들어가면 sql문 먼저 실행하여 insert를 먼저 실행하고, select를 다시 호출하는  옵션
@@ -154,7 +154,7 @@ public class AddressDao {
 		Connection conn = dbUtil.getConnection();
 		//address , city , country 3개의 테이블을 조인
 		PreparedStatement stmt = conn.prepareStatement("SELECT ad.address_id, ad.address, ad.address2, cr.country_id, cr.country, ad.city_id, ct.city ,  ad.district, ad.postal_code, ad.phone, ad.last_update "
-				+ "FROM address ad INNER JOIN city ct INNER JOIN country cr "
+				+ "FROM sakila_address ad INNER JOIN sakila_city ct INNER JOIN sakila_country cr "
 				+ "ON ad.city_id = ct.city_id AND ct.country_id = cr.country_id WHERE ad.address like ?");
 		stmt.setString(1, "%"+searchWord+"%"); // ?에 들어갈 검색값
 		ResultSet rs = stmt.executeQuery();
@@ -196,7 +196,7 @@ public class AddressDao {
 			Connection conn = dbUtil.getConnection();
 			//address , city , country 3개의 테이블을 조인
 			PreparedStatement stmt = conn.prepareStatement("SELECT ad.address_id, ad.address, ad.address2, cr.country_id, cr.country, ad.city_id, ct.city ,  ad.district, ad.postal_code, ad.phone, ad.last_update "
-					+ "FROM address ad INNER JOIN city ct INNER JOIN country cr ON ad.city_id = ct.city_id AND ct.country_id = cr.country_id WHERE ad.city_id = ?");
+					+ "FROM sakila_address ad INNER JOIN sakila_city ct INNER JOIN sakila_country cr ON ad.city_id = ct.city_id AND ct.country_id = cr.country_id WHERE ad.city_id = ?");
 			stmt.setInt(1, searchWord); // ?에 들어갈 검색값
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<AddressAndCityAndCountry> list = new ArrayList<AddressAndCityAndCountry>();
@@ -259,7 +259,7 @@ public class AddressDao {
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
 			//address , city , country 3개의 테이블을 조인
-			PreparedStatement stmt = conn.prepareStatement("SELECT MAX(address_id) FROM address");
+			PreparedStatement stmt = conn.prepareStatement("SELECT MAX(address_id) FROM sakila_address");
 			ResultSet rs = stmt.executeQuery();
 			
 			int addressIdMax = 0;
@@ -273,7 +273,7 @@ public class AddressDao {
 		public HashMap<String, Object> selectAddressOne(int addressId) throws Exception{
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "SELECT ad.address, ad.address2, ad.district, ad.city_id, c.city, ad.postal_code, ad.phone FROM address ad INNER JOIN city c ON ad.city_id=c.city_id WHERE ad.address_id=?";
+			String sql = "SELECT ad.address, ad.address2, ad.district, ad.city_id, c.city, ad.postal_code, ad.phone FROM sakila_address ad INNER JOIN sakila_city c ON ad.city_id=c.city_id WHERE ad.address_id=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, addressId);
 			

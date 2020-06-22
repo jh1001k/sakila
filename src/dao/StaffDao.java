@@ -30,7 +30,7 @@ public class StaffDao {
 	public ArrayList<StaffAndAddress> selectStaffListAll(String searchWord) throws Exception{
 		DBUtil dbUtil=new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT sf.* , ad.address FROM staff sf INNER JOIN address ad ON sf.address_id=ad.address_id WHERE first_name LIKE ? or last_name LIKE ? order by staff_id ASC";
+		String sql = "SELECT sf.* , ad.address FROM sakila_staff sf INNER JOIN sakila_address ad ON sf.address_id=ad.address_id WHERE first_name LIKE ? or last_name LIKE ? order by staff_id ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		stmt.setString(2, "%"+searchWord+"%");
@@ -65,7 +65,7 @@ public class StaffDao {
 	public void insertStaff(Staff staff) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO staff(first_name, last_name, address_id, email, store_id, username, password, last_update) VALUES(?, ?, ?, ?, ?, ?, ?, now())";
+		String sql = "INSERT INTO sakila_staff(first_name, last_name, address_id, email, store_id, username, password, last_update) VALUES(?, ?, ?, ?, ?, ?, ?, now())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, staff.getFirstName());
 		stmt.setString(2, staff.getLastName());

@@ -42,7 +42,7 @@ public class ActorDao {
 		System.out.println(actor.getLastName()+"<---lastname");
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO actor(first_name, last_name, last_update) VALUES (?,?, NOW())";
+		String sql = "INSERT INTO sakila_actor(first_name, last_name, last_update) VALUES (?,?, NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);		
 		stmt.setString(1, actor.getFirstName());
 		stmt.setString(2, actor.getLastName());
@@ -52,7 +52,7 @@ public class ActorDao {
 	public int totalCount() throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) from actor";
+		String sql = "SELECT count(*) from sakila_actor";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		int totalCount = 0;
@@ -65,7 +65,7 @@ public class ActorDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 	      DBUtil dbUtil = new DBUtil();
 	      Connection conn = dbUtil.getConnection();
-	      String sql = "SELECT count(*) FROM actor WHERE first_name like ? or last_name like ? ";
+	      String sql = "SELECT count(*) FROM sakila_actor WHERE first_name like ? or last_name like ? ";
 	      PreparedStatement stmt = conn.prepareStatement(sql);
 	      stmt.setString(1, "%"+searchWord+"%");
 	      stmt.setString(2, "%"+searchWord+"%");

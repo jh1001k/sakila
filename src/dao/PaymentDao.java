@@ -13,7 +13,7 @@ public class PaymentDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT p.*, s.*, c.* FROM payment p INNER JOIN customer c INNER JOIN staff s ON p.staff_id = s.staff_id AND p.customer_id = c.customer_id WHERE p.payment_id like ? ORDER BY p.payment_id ASC limit ?,?";
+		String sql = "SELECT p.*, s.*, c.* FROM sakila_payment p INNER JOIN sakila_customer c INNER JOIN sakila_staff s ON p.staff_id = s.staff_id AND p.customer_id = c.customer_id WHERE p.payment_id like ? ORDER BY p.payment_id ASC limit ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%" + searchWord + "%");
 		stmt.setInt(2, beginRow);
@@ -51,7 +51,7 @@ public class PaymentDao {
 	public int totalCount() throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*) from payment";
+		String sql = "SELECT count(*) from sakila_payment";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		int totalCount = 0;
@@ -64,7 +64,7 @@ public class PaymentDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 	      DBUtil dbUtil = new DBUtil();
 	      Connection conn = dbUtil.getConnection();
-	      String sql = "SELECT count(*) FROM payment WHERE payment_id like ?";
+	      String sql = "SELECT count(*) FROM sakila_payment WHERE payment_id like ?";
 	      PreparedStatement stmt = conn.prepareStatement(sql);
 	      stmt.setString(1, "%"+searchWord+"%");
 	      ResultSet rs = stmt.executeQuery();
@@ -89,7 +89,7 @@ public class PaymentDao {
 	public void insertPayment(Payment payment) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO payment(customer_id, staff_id, rental_id, amount, payment_date, last_update) VALUES(?,?,?,?,now(),now())";
+		String sql = "INSERT INTO sakila_payment(customer_id, staff_id, rental_id, amount, payment_date, last_update) VALUES(?,?,?,?,now(),now())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, payment.getCustomerId());
 		stmt.setInt(2, payment.getStaffId());
@@ -102,7 +102,7 @@ public class PaymentDao {
 	public ArrayList<PaymentAndCustomerAndStaff> selectPaymentAndCustomerAndStaffAll(String searchWord) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT p.*, s.*, c.* FROM payment p INNER JOIN customer c INNER JOIN staff s ON p.staff_id = s.staff_id AND p.customer_id = c.customer_id where p.customer_id like ? ORDER BY p.payment_id ASC";
+		String sql = "SELECT p.*, s.*, c.* FROM sakila_payment p INNER JOIN sakila_customer c INNER JOIN sakila_staff s ON p.staff_id = s.staff_id AND p.customer_id = c.customer_id where p.customer_id like ? ORDER BY p.payment_id ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%" + searchWord + "%");
 		ResultSet rs = stmt.executeQuery();

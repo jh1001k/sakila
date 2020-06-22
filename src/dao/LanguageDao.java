@@ -27,7 +27,7 @@ public class LanguageDao {
 		System.out.println(searchWord+"<----searchWord"); 
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String sql = "SELECT language_id, name, last_update FROM language WHERE name like ? ORDER BY language_id ASC";
+		String sql = "SELECT language_id, name, last_update FROM sakila_language WHERE name like ? ORDER BY language_id ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%" + searchWord + "%");
 		ResultSet rs = stmt.executeQuery();

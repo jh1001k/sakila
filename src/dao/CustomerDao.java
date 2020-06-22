@@ -26,7 +26,7 @@ public class CustomerDao {
 	public void insertCustomer(Customer customer) throws Exception {
 	DBUtil dbUtil = new DBUtil();
 	Connection conn = dbUtil.getConnection();
-	String sql = "INSERT INTO customer(store_id, first_name, last_name, email, address_id, create_date, last_update) VALUES(?, ?, ?, ?, ?, ?, now())";
+	String sql = "INSERT INTO sakila_customer(store_id, first_name, last_name, email, address_id, create_date, last_update) VALUES(?, ?, ?, ?, ?, ?, now())";
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	stmt.setInt(1, customer.getStoreId());
 	stmt.setString(2, customer.getFirstName());
@@ -45,7 +45,7 @@ public class CustomerDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM customer WHERE first_name like ? or last_name like ? ORDER BY customer_id asc";
+		String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM sakila_customer WHERE first_name like ? or last_name like ? ORDER BY customer_id asc";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%"); // first name 검색값
 		stmt.setString(2, "%"+searchWord+"%"); // last name 검색값
@@ -71,7 +71,7 @@ public class CustomerDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM customer WHERE customer_id=? ORDER BY customer_id asc";
+		String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM sakila_customer WHERE customer_id=? ORDER BY customer_id asc";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, searchWord);
 		
@@ -97,7 +97,7 @@ public class CustomerDao {
 		public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "SELECT count(*) FROM customer WHERE first_name like ? or last_name like ?";
+			String sql = "SELECT count(*) FROM sakila_customer WHERE first_name like ? or last_name like ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%"+searchWord+"%");
 			stmt.setString(2, "%"+searchWord+"%");
@@ -125,7 +125,7 @@ public class CustomerDao {
 			
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM customer WHERE first_name like ? or last_name like ? ORDER BY customer_id asc LIMIT ?, ?";
+			String sql = "SELECT customer_id, store_id, CONCAT(first_name,' ',last_name) AS full_name, email, address_id, active, create_date, last_update FROM sakila_customer WHERE first_name like ? or last_name like ? ORDER BY customer_id asc LIMIT ?, ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%"+searchWord+"%"); // first name 검색값
 			stmt.setString(2, "%"+searchWord+"%"); // last name 검색값

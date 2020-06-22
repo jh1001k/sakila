@@ -23,7 +23,7 @@ public class CityDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 	      DBUtil dbUtil = new DBUtil();
 	      Connection conn = dbUtil.getConnection();
-	      String sql = "SELECT count(*) FROM city ci INNER JOIN country co ON ci.country_id = co.country_id WHERE ci.city LIKE ? OR co.country LIKE ?";
+	      String sql = "SELECT count(*) FROM sakila_city ci INNER JOIN sakila_country co ON ci.country_id = co.country_id WHERE ci.city LIKE ? OR co.country LIKE ?";
 	      PreparedStatement stmt = conn.prepareStatement(sql);
 	      stmt.setString(1, "%"+searchWord+"%");
 	      stmt.setString(2, "%"+searchWord+"%");
@@ -50,7 +50,7 @@ public class CityDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO city(city, country_id, last_update) VALUES(?,?,now())";
+		String sql = "INSERT INTO sakila_city(city, country_id, last_update) VALUES(?,?,now())";
 		PreparedStatement stmt = conn.prepareStatement(sql);		
 		stmt.setString(1, city.getCity());
 		stmt.setInt(2, city.getCountryId());
@@ -63,7 +63,7 @@ public class CityDao {
 		
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT city_id, city FROM city";
+		String sql = "SELECT city_id, city FROM sakila_city";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<City> list = new ArrayList<City>();
@@ -80,7 +80,7 @@ public class CityDao {
 	public ArrayList<CityAndCountry> selectCityAndCountryAll(String searchWord, int beginRow, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT ci.*, co.* FROM city ci INNER JOIN country co ON ci.country_id = co.country_id" + 
+		String sql = "SELECT ci.*, co.* FROM sakila_city ci INNER JOIN sakila_country co ON ci.country_id = co.country_id" + 
 				" WHERE ci.city LIKE ? OR co.country LIKE ? ORDER BY ci.city_id LIMIT ?,?"; 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1,"%"+searchWord+"%");
@@ -126,7 +126,7 @@ public class CityDao {
 	public ArrayList<CityAndCountry> selectCityAndCountry(int searchWord) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT ci.*, co.* FROM city ci INNER JOIN country co ON ci.country_id = co.country_id" + 
+		String sql = "SELECT ci.*, co.* FROM sakila_city ci INNER JOIN sakila_country co ON ci.country_id = co.country_id" + 
 				" WHERE ci.country_id = ? ORDER BY ci.city_id "; 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,searchWord);		
@@ -167,7 +167,7 @@ public class CityDao {
 	public int selectCityIdMax() throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT MAX(city_id) FROM city";
+		String sql = "SELECT MAX(city_id) FROM sakila_city";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		

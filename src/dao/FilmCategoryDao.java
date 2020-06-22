@@ -50,7 +50,7 @@ public class FilmCategoryDao {
 		public int totalCount() throws Exception{
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "SELECT count(*) from film_category";
+			String sql = "SELECT count(*) from sakila_film_category";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			int totalCount = 0;
@@ -63,7 +63,7 @@ public class FilmCategoryDao {
 		public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		      DBUtil dbUtil = new DBUtil();
 		      Connection conn = dbUtil.getConnection();
-		      String sql = "SELECT count(*) FROM film_category fc INNER JOIN film f ON f.film_id = fc.film_id WHERE f.title like ? ";
+		      String sql = "SELECT count(*) FROM sakila_film_category fc INNER JOIN sakila_film f ON f.film_id = fc.film_id WHERE f.title like ? ";
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, "%"+searchWord+"%");
 		      ResultSet rs = stmt.executeQuery();

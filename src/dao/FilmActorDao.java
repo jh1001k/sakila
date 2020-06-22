@@ -74,7 +74,7 @@ public class FilmActorDao {
 	public int selectLastPage(String searchWord, int rowPerPage) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT count(*)FROM film_actor fa INNER JOIN film f ON fa.film_id=f.film_id INNER JOIN actor a ON fa.actor_id=a.actor_id WHERE f.title LIKE ?";
+		String sql = "SELECT count(*) FROM sakila_film_actor fa INNER JOIN sakila_film f ON fa.film_id=f.film_id INNER JOIN actor a ON fa.actor_id=a.actor_id WHERE f.title LIKE ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchWord+"%");
 		ResultSet rs = stmt.executeQuery();
